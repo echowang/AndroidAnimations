@@ -35,7 +35,7 @@ import android.view.animation.Interpolator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YoYo {
+public class AnimationBuilder {
 
     private static final long DURATION = BaseViewAnimator.DURATION;
     private static final long NO_DELAY = 0;
@@ -53,7 +53,7 @@ public class YoYo {
     private List<Animator.AnimatorListener> callbacks;
     private View target;
 
-    private YoYo(AnimationComposer animationComposer) {
+    private AnimationBuilder(AnimationComposer animationComposer) {
         animator = animationComposer.animator;
         duration = animationComposer.duration;
         delay = animationComposer.delay;
@@ -108,7 +108,7 @@ public class YoYo {
         private boolean repeat = false;
         private int repeatTimes = 0;
         private int repeatMode = ValueAnimator.RESTART;
-        private float pivotX = YoYo.CENTER_PIVOT, pivotY = YoYo.CENTER_PIVOT;
+        private float pivotX = AnimationBuilder.CENTER_PIVOT, pivotY = AnimationBuilder.CENTER_PIVOT;
         private Interpolator interpolator;
         private View target;
 
@@ -212,13 +212,13 @@ public class YoYo {
 
         public YoYoString playOn(View target) {
             this.target = target;
-            return new YoYoString(new YoYo(this).play(), this.target);
+            return new YoYoString(new AnimationBuilder(this).play(), this.target);
         }
 
     }
 
     /**
-     * YoYo string, you can use this string to control your YoYo.
+     * AnimationBuilder string, you can use this string to control your AnimationBuilder.
      */
     public static final class YoYoString {
 
@@ -253,12 +253,12 @@ public class YoYo {
     private BaseViewAnimator play() {
         animator.setTarget(target);
 
-        if (pivotX == YoYo.CENTER_PIVOT) {
+        if (pivotX == AnimationBuilder.CENTER_PIVOT) {
             ViewCompat.setPivotX(target, target.getMeasuredWidth() / 2.0f);
         } else {
             target.setPivotX(pivotX);
         }
-        if (pivotY == YoYo.CENTER_PIVOT) {
+        if (pivotY == AnimationBuilder.CENTER_PIVOT) {
             ViewCompat.setPivotY(target, target.getMeasuredHeight() / 2.0f);
         } else {
             target.setPivotY(pivotY);
